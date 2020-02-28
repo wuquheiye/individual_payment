@@ -1,0 +1,57 @@
+server:
+    port: 43009
+spring:
+    thymeleaf:
+      prefix: classpath:/templates/
+      suffix: .html
+      mode: HTML5
+      encoding: UTF-8
+    datasource:
+        type: com.alibaba.druid.pool.DruidDataSource
+        driver-class-name: com.mysql.jdbc.Driver
+        #zeroDateTimeBehavior=convertToNull&transformedBitIsBoolean=true
+        #url: jdbc:mysql://127.0.0.1:3306/similar_recruitment?useUnicode=true&characterEncoding=utf-8&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=Asia/Shanghai&zeroDateTimeBehavior=convertToNull&transformedBitIsBoolean=true
+#        url: jdbc:mysql://127.0.0.1:3306/lijie_oa?useUnicode=true&characterEncoding=utf-8&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=Asia/Shanghai&zeroDateTimeBehavior=convertToNull&transformedBitIsBoolean=true
+        #url: jdbc:mysql://106.54.231.23:3306/similar_recruitment?useUnicode=true&characterEncoding=utf-8&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=Asia/Shanghai&zeroDateTimeBehavior=convertToNull&transformedBitIsBoolean=true
+        #url: jdbc:mysql://49.235.133.20:3306/similar_recruitment?useUnicode=true&characterEncoding=utf-8&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=Asia/Shanghai&zeroDateTimeBehavior=convertToNull&transformedBitIsBoolean=true
+        url: jdbc:mysql://118.89.52.173:3306/similar_recruitment?useUnicode=true&characterEncoding=utf-8&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=Asia/Shanghai&zeroDateTimeBehavior=convertToNull&transformedBitIsBoolean=true
+
+        
+#        106
+#        username: similar_recruitment
+#        password: YtLZPaL7rMJTbAFy
+#        118
+        username: similar_recruitment
+        password: M44MPz7WNExisTwt
+
+#        username: root
+#        password: root
+
+
+
+#        username: similar
+#        password: EfTbTWyLwYrKKcip
+
+
+
+#mybatis:
+  #map-underscore-to-camel-case: true
+  #typeAliasesPackage: swtech.pageDesignControl.entity
+  #mapperLocations: classpath:mappers/*.xml
+
+mybatis-plus:
+  mapper-locations: classpath:mappers/*.xml
+  typeAliasesPackage: swtech.pageDesignControl.entity
+  global-config:
+    db-config:
+      db-type: mysql
+      id-type: auto
+      #table-prefix: hotel_
+
+
+#打印sql语句
+logging:
+  level: 
+    swtech.pageDesignControl.mapper: debug
+
+
