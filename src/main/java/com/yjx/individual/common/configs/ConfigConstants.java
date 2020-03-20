@@ -1,4 +1,4 @@
-package com.yjx.individual.common.configs;//package swtech.pageDesignControl.common.configs;
+//package com.yjx.individual.common.configs;//package swtech.pageDesignControl.common.configs;
 //
 //import org.jodconverter.office.OfficeUtils;
 //import org.springframework.beans.factory.annotation.Value;

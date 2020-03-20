@@ -7,7 +7,7 @@ import java.util.Base64;
 
 /**
  * @Description
- * @Author zzl
+ * @Author yjx
  * @Date 2019-04-19 17:19
  * @Version 1.0
  */
@@ -17,7 +17,7 @@ public class Base64Util {
     private static final Base64.Encoder encoder = Base64.getEncoder();
     private static final Base64.Decoder decoder = Base64.getDecoder();
 
-    private static final String salt = "hotel";
+    private static final String salt = "individual";
     private static final int[] indexArr = {35, 39, 26, 12, 9};
     private static final int COUNT = 5;
 

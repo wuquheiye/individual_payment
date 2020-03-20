@@ -324,6 +324,7 @@ public class HttpClientUtils {
             //从响应对象中获取内容
             HttpEntity entity = httpResponse.getEntity();
             result  = EntityUtils.toString(entity);
+            System.out.println("返回参数未"+result);
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -369,5 +370,57 @@ public class HttpClientUtils {
             e.printStackTrace();
         }
         return result;
+    }
+
+    /**
+     * 向指定的地址发送一个post请求
+     * map 转json
+     */
+    public  static String post(String url,String data){
+        try {
+            URL   urlObj = new URL(url);
+            URLConnection connection = urlObj.openConnection();
+            //要发送数据出去，必须设置为可发送数据状态
+            connection.setDoOutput(true);
+            connection.setRequestProperty("Content-Type", "application/json; charset=utf-8");
+            //获取输出流
+            OutputStream os = connection.getOutputStream();
+            System.out.println("giuui"+data.getBytes());
+            os.write(data.getBytes());
+            os.close();
+            //获取输入流
+            InputStream is = connection.getInputStream();
+            byte[] b =new byte[1024];
+            int len;
+            StringBuilder sb = new StringBuilder();
+            while ((len=is.read(b))!=-1){
+                sb.append(new String(b,0,len));
+            }
+            return sb.toString();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public static void main(String[] args) {
+
+//        String urlString=" http://baiye69.51vip.biz:15671/individual/android-listen/AndroidListen";
+//        sendGet(urlString,"aa=value1&bb=value2");  //get请求 参数 name1=value1&name2=value2 形式
+        String urlString="http://baiye69.51vip.biz:15671/anlsc/notificationListener";
+        Object object =new Object();
+        Map<String, Object> param=new HashMap<String, Object>();
+        param.put("money", "12.0");
+        param.put("time", "2012-02-02");
+        param.put("title", "支付宝");
+        param.put("content", "收款到账0.01元");
+//        net.sf.json.JSONObject jsonObject = net.sf.json.JSONObject.fromObject(param);
+//        System.out.println(jsonObject.toString());
+//        post(urlString,jsonObject.toString());//post请求 参数 name1=value1&name2=value2 形式
+
+        doPost(urlString,param);
+
+
     }
 }

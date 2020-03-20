@@ -17,6 +17,10 @@ public class AndroidNotificationListenerJson implements Serializable {
     private double money;
     private String time;
     private String title;
+    /**
+     * 支付类型
+     */
+    private String type;
     private String content;
 
 }

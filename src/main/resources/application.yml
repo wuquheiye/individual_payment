@@ -1,20 +1,44 @@
 server:
-    port: 43009
+    port: 40001
 spring:
+
+  # thymeleaf 模板配置
     thymeleaf:
       prefix: classpath:/templates/
       suffix: .html
       mode: HTML5
       encoding: UTF-8
+  #缓存自定义配置
+#    cache:
+#      cache-names:
+#        - localDefaultCache
+#        - concurrentCache
+#      type: simple
+
+    jackson:
+      serialization:
+        indent_output: true
+    redis:
+      # Redis数据库索引（默认为0）
+      database: 1
+      # Redis服务器地址
+      host: 127.0.0.1
+      # Redis服务器连接端口
+      port: 6379
+      # Redis服务器连接密码（默认为空）
+      password: root
+      # 连接超时时间（毫秒）
+      timeout: 2000
     datasource:
         type: com.alibaba.druid.pool.DruidDataSource
         driver-class-name: com.mysql.jdbc.Driver
         #zeroDateTimeBehavior=convertToNull&transformedBitIsBoolean=true
         #url: jdbc:mysql://127.0.0.1:3306/similar_recruitment?useUnicode=true&characterEncoding=utf-8&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=Asia/Shanghai&zeroDateTimeBehavior=convertToNull&transformedBitIsBoolean=true
-#        url: jdbc:mysql://127.0.0.1:3306/lijie_oa?useUnicode=true&characterEncoding=utf-8&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=Asia/Shanghai&zeroDateTimeBehavior=convertToNull&transformedBitIsBoolean=true
-        #url: jdbc:mysql://106.54.231.23:3306/similar_recruitment?useUnicode=true&characterEncoding=utf-8&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=Asia/Shanghai&zeroDateTimeBehavior=convertToNull&transformedBitIsBoolean=true
+        #url: jdbc:mysql://127.0.0.1:3306/individual_payment?useUnicode=true&characterEncoding=utf-8&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=Asia/Shanghai&zeroDateTimeBehavior=convertToNull&transformedBitIsBoolean=true
+        #url: jdbc:mysql://106.54.231.23:3306/individual_payment?useUnicode=true&characterEncoding=utf-8&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=Asia/Shanghai&zeroDateTimeBehavior=convertToNull&transformedBitIsBoolean=true
+
         #url: jdbc:mysql://49.235.133.20:3306/similar_recruitment?useUnicode=true&characterEncoding=utf-8&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=Asia/Shanghai&zeroDateTimeBehavior=convertToNull&transformedBitIsBoolean=true
-        url: jdbc:mysql://118.89.52.173:3306/similar_recruitment?useUnicode=true&characterEncoding=utf-8&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=Asia/Shanghai&zeroDateTimeBehavior=convertToNull&transformedBitIsBoolean=true
+        url: jdbc:mysql://118.89.52.173:3306/individual_payment?useUnicode=true&characterEncoding=utf-8&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=Asia/Shanghai&zeroDateTimeBehavior=convertToNull&transformedBitIsBoolean=true
 
         
 #        106
@@ -23,7 +47,7 @@ spring:
 #        118
         username: similar_recruitment
         password: M44MPz7WNExisTwt
-
+#
 #        username: root
 #        password: root
 
@@ -34,14 +58,14 @@ spring:
 
 
 
-#mybatis:
-  #map-underscore-to-camel-case: true
-  #typeAliasesPackage: swtech.pageDesignControl.entity
-  #mapperLocations: classpath:mappers/*.xml
+mybatis:
+  map-underscore-to-camel-case: true
+  typeAliasesPackage: com.yjx.individual.entity
+  mapperLocations: classpath:mappers/*.xml
 
 mybatis-plus:
   mapper-locations: classpath:mappers/*.xml
-  typeAliasesPackage: swtech.pageDesignControl.entity
+  typeAliasesPackage: com.yjx.individual.entity
   global-config:
     db-config:
       db-type: mysql
@@ -49,9 +73,21 @@ mybatis-plus:
       #table-prefix: hotel_
 
 
+
+
+
 #打印sql语句
 logging:
-  level: 
-    swtech.pageDesignControl.mapper: debug
+  level:
+    com.yjx.individual.mapper: debug
+
+alipay:
+  gatewayUrl: https://openapi.alipaydev.com/gateway.do
+  appid: 2016101700708045
+  privateKey: MIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQCMH1f0PsGSg89vSuSQX2uEsuxMnCrGxubJrA8GozBJoxsmuMYeecjdoIeGg9wre5UbHAFwRo7gWi+6SnJBsjVPlqOO2iVs3GnBR/9QakzbIM3/yHf8FQ1VBegkoY1jr1Gklo8b5x8yvH+mENWfW5PJyDW4Up08DQ3JinLgwqq8K/Cl1YjT8/kUYEVuSDZkg00Xo5YvFO0ilKD8ltXNI2e103/73Lqbqygx/IZkZl1fps7S2paR97TORFDIEgFnqArPAf35+dvYan1T1K2OwEGCMfKSn/1AnPyXsGbdhUOyYAJZUEo0hQhCtj9b3YbO9ZWlPkV59VRwjhmdA91SVmyBAgMBAAECggEAQMXQa6iC5M6nmiO9qnthgVMQZo2ePIr/bmRqAcB39uI+D9VESBw13TVy0JytrzAOihyVEaicLVujSnNVg8b0W9kfvE5dFIiDHoTAohSxeG4eq8mopU+5/P6hBCXl7RnDHNk4SEa7pkF6pHKNvX+gvpsdMhqGcpb6M5sbZYi3UgowO8OIh1Ce3CpY6qBS00zMUvlbLA2TWTo8tZceKyQVHDV1DTJatTf4TepTzXCQvoaDc9GxJV7YeM7iWEfs7jaKUIBb20yYdz6wH4QX6Vd3EKoXEY3BWOdl0UVg4VCI+ELnxHqteKrS/O19HoIVvQbn7gS2zGFO83OfmDqL06+sUQKBgQDgEMMz6oF67PjZNGtVzRsFGy1mDkkdIiMnRPrSN5AhkEEbk795GlGzAhritjdUXQQ6GEoAdUHolmBNB2Dx8zajC6x9b0/VsNbA4/x3LBo0LN4t4uqoCPLI8dNDMXDAKaLUMiY8NXLjYrzdTrjiLP0DPPEB+BopcVpQEM1iHTg55QKBgQCgF9dN5kTIsf6fSFgwFgU9NsvfR/2QalQJDThjQXWg4gqLQV/8/GM9HLpSotlOU6uy74EbF9FJpe07ii9wu5tfimP9wpv/pjYJZmMOAaUpT5rnmOk8Lqi3hEXAhQlZQDhXn55hjtC9+nqAlQNHiz4rHuxF/aa26wBZrR3qfJpObQKBgCTtfk5jGr3YqlaZ1grJB+f6h6vnNNORWbvSGYhl0eJGNQTHf+oElWxsL2Qn5cyIm/a7JA8ZRCiCCBMJ4Ude7yVF+kKeAslUIMCfkm9NnG/26RMk78mL1/+YI1pSnqN8+TIBpd2MbYfeMQREQiI8ieJru8i4TA+CeAD0E/VUnXylAoGBAIm0eCo1i6zmDhKMc+7IwjDpVWv1zJHQJAC1Mm+N+tQsGs21qg8+OU5zy4EROsI5DlOX2AGp9wfWhbzVHAFoHjmMHH5GS1EXcxuaylFd8Ocb5i6YRObTa6SPTkBPLr9qkgws7FsWMU94iK7Zfjyn9Q26R5ncmO52LZL1aeosy73xAoGAAbLoqWlxsjE4vcffm098dOtC6IRmmRYOFBi4h4CTeN/8PByVQcCsUX4jt1eUPTFSa+frjYfhCtFZjTP5qpFE8VqqBadsk6NXovWJ9Ebz9wBAcpz1sodvQwwRaxM+wDhzKVNKxRMdO97iBHxoRJI7t+E5HXjXS+IZa0OlzJuSbEs=
+  alipayPublicKey: MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAjB9X9D7BkoPPb0rkkF9rhLLsTJwqxsbmyawPBqMwSaMbJrjGHnnI3aCHhoPcK3uVGxwBcEaO4FovukpyQbI1T5ajjtolbNxpwUf/UGpM2yDN/8h3/BUNVQXoJKGNY69RpJaPG+cfMrx/phDVn1uTycg1uFKdPA0NyYpy4MKqvCvwpdWI0/P5FGBFbkg2ZINNF6OWLxTtIpSg/JbVzSNntdN/+9y6m6soMfyGZGZdX6bO0tqWkfe0zkRQyBIBZ6gKzwH9+fnb2Gp9U9StjsBBgjHykp/9QJz8l7Bm3YVDsmACWVBKNIUIQrY/W92GzvWVpT5FefVUcI4ZnQPdUlZsgQIDAQAB
+  returnUrl: https://www.taobao.com/   #支付成功跳转的商家url
+  notifyUrl: https://www.baidu.com/
+
 
 
